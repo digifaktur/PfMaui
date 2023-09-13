@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PfMaui.MainPage"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <WebView x:Name="mainWebView" Grid.Row="0" Grid.Column="0"
+			Source="{Binding SourceUrl, Mode=TwoWay}" android:WebView.MixedContentMode="AlwaysAllow">
+            <WebView.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="2" />
+            </WebView.GestureRecognizers>
+
+        </WebView>
+        <Button x:Name="btSettings"  HorizontalOptions="Start" VerticalOptions="Start" Margin="10" Text="Settings" HeightRequest="40" WidthRequest="120" Clicked="Button_Clicked"/>
+    </Grid>
+</ContentPage>
