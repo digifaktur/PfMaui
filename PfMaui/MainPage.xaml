@@ -11,6 +11,7 @@
 			Source="{Binding SourceUrl, Mode=TwoWay}" android:WebView.MixedContentMode="AlwaysAllow">
             <WebView.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="2" />
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1" NumberOfTapsRequired="1" />
             </WebView.GestureRecognizers>
 
         </WebView>

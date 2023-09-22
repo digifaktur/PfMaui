@@ -6,7 +6,9 @@ namespace PfMaui;
 public partial class MainPage : ContentPage
 {
     IDispatcherTimer urlRefreshTimer = Application.Current.Dispatcher.CreateTimer();
+    IDispatcherTimer brightnessTimer = Application.Current.Dispatcher.CreateTimer();
     IDispatcherTimer settingsButtonTimer = Application.Current.Dispatcher.CreateTimer();
+    int brightness = 255;
     public MainPage(MainPageViewModel vm)
     {
         InitializeComponent();
@@ -16,12 +18,24 @@ public partial class MainPage : ContentPage
         urlRefreshTimer.Tick += (s, e) => RefreshUrl();
         urlRefreshTimer.Start();
 
+        brightnessTimer.Interval = TimeSpan.FromSeconds(15);
+        brightnessTimer.Tick += (s, e) => SetBrightness();
+        brightnessTimer.Start();
+
         settingsButtonTimer.Interval = TimeSpan.FromSeconds(5);
         settingsButtonTimer.Tick += (s, e) => HideButton();
         settingsButtonTimer.Start();
 
         //PowerManager pm = (PowerManager)MainActivity.MainActivityInstance.GetSystemService("PowerManager");
 
+    }
+
+    private void SetBrightness()
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            MainActivity.MainActivityInstance.SetDisplayBrightness(0);
+        });
     }
 
     private void HideButton()
@@ -52,6 +66,14 @@ public partial class MainPage : ContentPage
         {
             btSettings.IsVisible = true;
             settingsButtonTimer.Start();
+        });
+    }
+
+    private void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            MainActivity.MainActivityInstance.SetDisplayBrightness(255);
         });
     }
 }
